@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecasting App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Forecasting App</h1>
+        <form method="post">
+            <input type="text" name="city" placeholder="Enter city" required>
+            <button type="submit">Get Weather</button>
+        </form>
+        {% if weather_data %}
+        <div class="weather">
+            <h2>{{ weather_data.location.name }}, {{ weather_data.location.region }}, {{ weather_data.location.country }}</h2>
+            <p>Local Time: {{ weather_data.location.localtime }}</p>
+            <p>Temperature: {{ weather_data.current.temp_c }} °C / {{ weather_data.current.temp_f }} °F</p>
+            <p>Condition: {{ weather_data.current.condition }}</p>
+            <img src="{{ weather_data.current.icon }}" alt="Weather icon">
+            <p>Wind: {{ weather_data.current.wind_kph }} kph {{ weather_data.current.wind_dir }}</p>
+            <p>Pressure: {{ weather_data.current.pressure_mb }} mb</p>
+            <p>Humidity: {{ weather_data.current.humidity }}%</p>
+            <p>Feels Like: {{ weather_data.current.feelslike_c }} °C</p>
+            <p>UV Index: {{ weather_data.current.uv }}</p>
+            <p>Gust: {{ weather_data.current.gust_kph }} kph</p>
+            <h3>Air Quality:</h3>
+            <p>CO: {{ weather_data.current.air_quality.co }}</p>
+            <p>NO2: {{ weather_data.current.air_quality.no2 }}</p>
+            <p>O3: {{ weather_data.current.air_quality.o3 }}</p>
+            <p>SO2: {{ weather_data.current.air_quality.so2 }}</p>
+            <p>PM2.5: {{ weather_data.current.air_quality.pm2_5 }}</p>
+            <p>PM10: {{ weather_data.current.air_quality.pm10 }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
